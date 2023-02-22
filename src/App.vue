@@ -27,7 +27,7 @@
 
   <input type="text" v-model="id">
 
-  <button @click="prueba2">id datos</button>
+  <button @click="prueba2">datos por codigo</button>
 <br>
 <table>
   <tr>
