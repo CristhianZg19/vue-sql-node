@@ -1,14 +1,27 @@
 <template>
 
-  <v-dialog v-model="modal">
-    <input type="text" placeholder="codigo">
-  </v-dialog>
+<div>
+  
+  
+    <input type="text" placeholder="nombre" v-model="nombre">
+<br>
+ 
+    <input type="text" placeholder="empresa" v-model="empresa">
+ <br>
+
+    <input type="text" placeholder="celular" v-model="celular">
+<br>
+
+    <input type="text" placeholder="correo" v-model="correo">
+
+
+  <h1><button @click="agregarDatos()">agregar</button></h1>
+
+</div>
 
 
 
-  <img alt="Vue logo" src="./assets/logo.png">
   <h1><button @click="prueba()">Listar Datos</button></h1>
-  <h1><button @click="modalAdd()">agregar</button></h1>
 
   <br>
 
@@ -47,7 +60,13 @@ export default {
     datos: [],
     datosID: [],
     id: '',
-    modal: false
+    modal: false,    
+    nombre: '',
+    empresa: '',
+    celular: '',
+    correo: '',
+    contactos: {}
+
   }},
   methods: {
       async prueba(){
@@ -61,9 +80,17 @@ export default {
         console.log(error, 'error')
       }
       },
-      modalAdd(){
-        this.modal = false
-      },
+      agregarDatos(){
+        const contacto = Object.assign({})     
+        contacto.nombre = this.nombre
+        contacto.empresa = this.empresa
+        contacto.celular = this.celular
+        contacto.correo = this.correo
+       this.contactos = contacto
+
+       axios.post('http://localhost:8090/api/contactos/guardar/', this.contactos)
+
+}, 
       async prueba2(){
         try {
           
