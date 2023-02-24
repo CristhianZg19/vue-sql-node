@@ -5,7 +5,7 @@ async function getContactos(){
     try {
         let pool = await sql.connect(config);
         let datos = await pool.request().query("SELECT * FROM contactos");
-       // console.log('CONECTADO CSMR XD', datos)
+       
         return datos.recordsets;
     } catch (error) {
         console.log(error)
@@ -19,7 +19,7 @@ async function getContactosID(id){
         let datos = await pool.request()
         .input('input_parameter', sql.Int, id)
         .query("SELECT * FROM contactos WHERE codigo = @input_parameter");
-        //console.log('CONECTADO CSMR XD', datos)
+      
         return datos.recordsets;
     } catch (error) {
         console.log(error)
@@ -37,7 +37,7 @@ async function insertContactos(categoria){
         .input('celular', sql.VarChar, categoria.celular)
         .input('correo', sql.VarChar, categoria.correo)
         .execute("insertdatos");
-        //console.log('CONECTADO CSMR XD', datos)
+       
         return insertar.recordsets;
     } catch (error) {
         console.log(error)
@@ -45,9 +45,23 @@ async function insertContactos(categoria){
     }
 }
 
+async function eliminar(id){
+    try {
+        let pool = await sql.connect(config);
+        let datos = await pool.request()
+        .input('input_parameter', sql.Int, id)
+        .query('DELETE FROM contactos WHERE codigo = @input_parameter')
+        return datos.recordsets;
+    } catch (error) {
+        console.log(error)
+        console.log('error de conexion')
+    }
+}
+
 module.exports = {
     getContactos : getContactos,
     getContactosID : getContactosID,
-    insertContactos : insertContactos
+    insertContactos : insertContactos,
+    eliminar : eliminar
 
 }

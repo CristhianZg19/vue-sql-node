@@ -25,9 +25,16 @@ router.route('/contactos/:id').get((request, response)=>{
     })
 })
 
+
 router.route('/contactos/guardar').post((request, response)=>{
     let categoria = {...request.body}
      dbodatos.insertContactos(categoria).then(result =>{
+        response.json(result[0]);
+    })
+})
+
+router.route('/eliminar/:id').get((request, response)=>{
+    dbodatos.eliminar(request.params.id).then(result =>{
         response.json(result[0]);
     })
 })

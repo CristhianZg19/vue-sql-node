@@ -36,6 +36,7 @@
     <th>empresa</th>
     <th>celular</th>
     <th>correo</th>
+    <th>accion</th>
   </tr>
   <tr v-for="(item,index) in datos" :key="index">
     <td>{{ item.codigo }}</td>
@@ -43,6 +44,7 @@
     <td>{{ item.empresa }}</td>
     <td>{{ item.celular }}</td>
     <td>{{ item.correo }}</td>
+    <td><button @click=" eliminarregistro(item.codigo)">eliminar</button></td>
   </tr>
   
 </table>
@@ -90,7 +92,18 @@ export default {
 
        axios.post('http://localhost:8090/api/contactos/guardar/', this.contactos)
 
-}, 
+},
+async eliminarregistro(codigo){
+        try {
+          
+        await axios.get(`http://localhost:8090/api/eliminar/${codigo}`).then((data) => {
+      //  console.log(data.data, 'datos')
+console.log(data)        
+      })  }catch (error) {
+        console.log(error, 'error')
+      }
+      },
+  
       async prueba2(){
         try {
           
